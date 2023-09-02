@@ -228,309 +228,7 @@ formularioIniciarSesion.addEventListener("submit", (e) => {
   formularioIniciarSesion.reset();
 });
 
-/*function generarTurnos(turnosMedico) {
-  const frecuencia = parseInt(turnosMedico.frecuencia);
-  const divTurnos = document.querySelector("#turnosDia");
-  divTurnos.innerHTML = "";
-  console.log(turnosMedico.horainicio);
-  console.log(turnosMedico.horafin);
 
-  let currentHora = new Date(turnosMedico.horainicio);
-  let finhora = new Date(turnosMedico.horafin);
-  console.log(currentHora);
-  console.log(finhora);
-
-  while (currentHora <= finhora) {
-    const div = document.createElement("div");
-    div.textContent = currentHora.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    div.classList.add("cajaTurno", "noAsignado");
-    (div.id = Date.now().toString(36)), divTurnos.appendChild(div);
-
-    currentHora.setMinutes(currentHora.getMinutes() + frecuencia);
-
-    div.addEventListener("click", function () {
-      if (div.classList.contains("asignado")) {
-        Swal.fire({
-          title: "¿Quieres cancelar el turno?",
-          icon: "question",
-          html: `
-          <p>Dia: ${fechaInput.value}</p>
-          <p>Hora: ${currentHora.toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}</p>
-          `,
-          confirmButtonText: "Aceptar",
-          cancelButtonText: "Cancelar",
-          showCancelButton: true,
-        }).then((respuesta) => {
-          if (respuesta.isConfirmed) {
-            Swal.fire({
-              title: "Turno cancelado",
-              icon: "error",
-              confirmButtonText: "Aceptar",
-            });
-            div.classList.remove("asignado");
-            div.classList.add("noAsignado");
-            div.textContent = currentHora.toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            });
-          }
-        });
-      } else {
-        const confirmacion = confirm("¿Quieres asignar este turno?");
-        if (confirmacion) {
-          alert(`Turno asignado: ${div.textContent}`);
-          div.classList.remove("noAsignado");
-          div.classList.add("asignado");
-          div.innerHTML += JSON.parse(
-            sessionStorage.getItem("usuario")
-          ).nombreUsuario;
-        }
-      }
-    });
-  }
-}*/
-/*function generarTurnos(turnosMedico) {
-  const frecuencia = parseInt(turnosMedico.frecuencia);
-  const divTurnos = document.querySelector("#turnosDia");
-  divTurnos.innerHTML = "";
-
-  let currentHora = new Date(turnosMedico.horainicio);
-  let finhora = new Date(turnosMedico.horafin);
-
-  while (currentHora <= finhora) {
-    const div = document.createElement("div");
-    const horaOriginal = new Date(currentHora); // Guardamos la hora original
-    div.dataset.originalHora = horaOriginal.toISOString(); // Lo guardamos en un atributo personalizado
-    div.textContent = currentHora.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    div.classList.add("cajaTurno", "noAsignado");
-    div.id = Date.now().toString(36);
-    divTurnos.appendChild(div);
-
-    currentHora.setMinutes(currentHora.getMinutes() + frecuencia);
-
-    div.addEventListener("click", function () {
-      if (div.classList.contains("asignado")) {
-        Swal.fire({
-          title: "¿Quieres cancelar el turno?",
-          icon: "question",
-          html: `
-          <p>Dia: ${fechaInput.value}</p>
-          <p>Hora: ${div.dataset.originalHora}</p>`, // Usamos la hora original del atributo personalizado
-          confirmButtonText: "Aceptar",
-          cancelButtonText: "Cancelar",
-          showCancelButton: true,
-        }).then((respuesta) => {
-          if (respuesta.isConfirmed) {
-            Swal.fire({
-              title: "Turno cancelado",
-              icon: "error",
-              confirmButtonText: "Aceptar",
-            });
-            div.classList.remove("asignado");
-            div.classList.add("noAsignado");
-            div.innerHTML = currentHora.toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            });
-          }
-        });
-      } else {
-        const confirmacion = confirm("¿Quieres asignar este turno?");
-        if (confirmacion) {
-          alert(`Turno asignado: ${div.textContent}`);
-          div.classList.remove("noAsignado");
-          div.classList.add("asignado");
-          div.innerHTML += JSON.parse(
-            sessionStorage.getItem("usuario")
-          ).nombreUsuario;
-        }
-      }
-    });
-  }
-}*/
-
-/*function generarTurnos(turnosMedico) {
-  const frecuencia = parseInt(turnosMedico.frecuencia);
-  const divTurnos = document.querySelector("#turnosDia");
-  divTurnos.innerHTML = "";
-
-  let currentHora = DateTime.fromISO(turnosMedico.horainicio); // Utiliza Luxon para crear objetos DateTime
-  let finhora = DateTime.fromISO(turnosMedico.horafin); // Utiliza Luxon para crear objetos DateTime
-
-  while (currentHora <= finhora) {
-    const div = document.createElement("div");
-    const horaOriginal = currentHora; // Guardamos la hora original
-    div.dataset.originalHora = horaOriginal.toISO(); // Lo guardamos en un atributo personalizado
-    div.textContent = currentHora.toLocaleString(DateTime.TIME_SIMPLE);
-    div.classList.add("cajaTurno", "noAsignado");
-    div.id = Date.now().toString(36);
-    divTurnos.appendChild(div);
-
-    currentHora = currentHora.plus({ minutes: frecuencia }); // Utiliza Luxon para sumar minutos
-
-    div.addEventListener("click", function () {
-      if (div.classList.contains("asignado")) {
-        Swal.fire({
-          title: "¿Quieres cancelar el turno?",
-          icon: "question",
-          html: `
-          <p>Dia: ${fechaInput.value}</p>
-          <p>Hora: ${div.dataset.originalHora}</p>`, // Usamos la hora original del atributo personalizado
-          confirmButtonText: "Aceptar",
-          cancelButtonText: "Cancelar",
-          showCancelButton: true,
-        }).then((respuesta) => {
-          if (respuesta.isConfirmed) {
-            Swal.fire({
-              title: "Turno cancelado",
-              icon: "error",
-              confirmButtonText: "Aceptar",
-            });
-            div.classList.remove("asignado");
-            div.classList.add("noAsignado");
-            div.textContent = currentHora.toLocaleString(DateTime.TIME_SIMPLE);
-          }
-        });
-      } else {
-        const confirmacion = confirm("¿Quieres asignar este turno?");
-        if (confirmacion) {
-          alert(`Turno asignado: ${div.textContent}`);
-          div.classList.remove("noAsignado");
-          div.classList.add("asignado");
-          div.innerHTML += JSON.parse(
-            sessionStorage.getItem("usuario")
-          ).nombreUsuario;
-        }
-      }
-    });
-  }
-}*/
-
-/*function generarTurnos(turnosMedico){
-
-  const id = turnosMedico.id;
-
-  let turnosDiaFiltrados = listaTurnos.find(turno => turno[0].id === id);
-
-  console.log(turnosDiaFiltrados);
-
-  contenedorTurnosDia.style.display = "block";
-
-  contenedorTurnosDia.innerHTML = `<div><p>Medico: ${turnosDiaFiltrados[0].medico}</p><p> Especialidad: ${turnosDiaFiltrados[0].servicio}</p><p> Dia: ${turnosDiaFiltrados[0].dia}</p></div>`;
-
-  let turnoshtml = turnosDiaFiltrados.map((t) => {
-    const horaInicio = DateTime.fromISO(t.horainicio);
-    const horaFin = DateTime.fromISO(t.horafin);
-    if(t.paciente === ""){
-      return `<div class="noAsignado"><p> Hora inicio: ${horaInicio.toFormat(
-        "HH:mm"
-      )}</p><p> Hora fin: ${horaFin.toFormat("HH:mm")}</p><p> Paciente: ${
-        t.paciente
-      }</p></div>`;
-    }else{
-      return `<div class="asignado"><p> Hora inicio: ${horaInicio.toFormat(
-        "HH:mm"
-      )}</p><p> Hora fin: ${horaFin.toFormat("HH:mm")}</p><p> Paciente: ${
-        t.paciente
-      }</p></div>`;
-    }
-    
-  });
-
-  contenedorTurnosDia.innerHTML += turnoshtml;
-
-}*/
-/*function generarTurnos(turnosMedico) {
-  const id = turnosMedico.id;
-
-  let turnosDiaFiltrados = listaTurnos.find((turno) => turno[0].id === id);
-
-  console.log(turnosDiaFiltrados);
-
-  contenedorTurnosDia.style.display = "block";
-
-  contenedorTurnosDia.innerHTML = `<div><p>Medico: ${turnosDiaFiltrados[0].medico}</p><p> Especialidad: ${turnosDiaFiltrados[0].servicio}</p><p> Dia: ${turnosDiaFiltrados[0].dia}</p></div>`;
-
-  turnosDiaFiltrados.forEach((t) => {
-    const horaInicio = DateTime.fromISO(t.horainicio);
-    const horaFin = DateTime.fromISO(t.horafin);
-    const divTurno = document.createElement("div");
-    if (t.paciente === "") {
-      divTurno.className = "noAsignado";
-    } else {
-      divTurno.className = "asignado";
-    }
-    divTurno.innerHTML = `<p> Hora inicio: ${horaInicio.toFormat(
-      "HH:mm"
-    )}</p><p> Hora fin: ${horaFin.toFormat("HH:mm")}</p><p> Paciente: ${
-      t.paciente
-    }</p>`;
-
-    // Agregar evento de clic para preguntar si desea asignar el turno
-    divTurno.addEventListener("click", () => {
-      if (t.paciente === "") {
-        Swal.fire({
-          title: "¿Quieres asignar este turno?",
-          icon: "question",
-          html: `
-          <p>Dia: ${fechaInput.value}</p>
-          <p>Hora: ${div.dataset.originalHora}</p>`, // Usamos la hora original del atributo personalizado
-          confirmButtonText: "Aceptar",
-          cancelButtonText: "Cancelar",
-          showCancelButton: true,
-        }).then((respuesta) => {
-          if (respuesta.isConfirmed) {
-            Swal.fire({
-              title: "Turno asignado",
-              icon: "success",
-              confirmButtonText: "Aceptar",
-            });
-            divTurno.classList.remove("asignado");
-            divTurno.classList.add("noAsignado");
-            t.paciente = usuarioenSesion.nombreUsuario;
-            localStorage.setItem("listaTurnos", JSON.stringify(listaTurnos));
-            generarTurnos(turnosMedico)
-          }
-        });
-      }else{
-        Swal.fire({
-          title: "¿Quieres cancelar el turno?",
-          icon: "question",
-          html: `
-          <p>Dia: ${fechaInput.value}</p>
-          <p>Hora: ${div.dataset.originalHora}</p>`, // Usamos la hora original del atributo personalizado
-          confirmButtonText: "Aceptar",
-          cancelButtonText: "Cancelar",
-          showCancelButton: true,
-        }).then((respuesta) => {
-          if (respuesta.isConfirmed) {
-            Swal.fire({
-              title: "Turno cancelado",
-              icon: "error",
-              confirmButtonText: "Aceptar",
-            });
-            divTurno.classList.remove("asignado");
-            divTurno.classList.add("noAsignado");
-            t.paciente = "";
-            localStorage.setItem("listaTurnos", JSON.stringify(listaTurnos));
-            generarTurnos(turnosMedico)
-          }
-        });
-      }
-    });
-
-    contenedorTurnosDia.appendChild(divTurno);
-  });
-}*/
 function generarTurnos(turnosMedico) {
   const id = turnosMedico.id;
 
@@ -557,7 +255,7 @@ function generarTurnos(turnosMedico) {
       t.paciente
     }</p>`;
 
-    // Agregar evento de clic para preguntar si desea asignar o cancelar el turno
+   
     divTurno.addEventListener("click", () => {
       const turnoActual = t;
       if (turnoActual.paciente === "") {
@@ -640,104 +338,7 @@ especialidad.addEventListener("change", (e) => {
   medico.innerHTML = medicoshtml;
 });
 
-/*formularioTurnos.addEventListener("submit", (e) => {
-  e.preventDefault();
 
-  if (
-    especialidad.value === "" ||
-    medico.value === "" ||
-    horainicio.value === "" ||
-    horafin.value === "" ||
-    dia.value == "" ||
-    frecuencia.value === ""
-  ) {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Por Favor complete todos los campos",
-    });
-  } else {
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Se registro el turno con exito!",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-
-    const eventoNuevo = {
-      id: Date.now().toString(36),
-      servicio: especialidad.value,
-      medico: medico.value,
-      horainicio: new Date(`${dia.value}T${horainicio.value}:00`),
-      horafin: new Date(`${dia.value}T${horafin.value}:00`),
-      dia: dia.value,
-      frecuencia: frecuencia.value,
-    };
-    const hora = DateTime.fromISO(horainicio.value);
-    console.log(hora);
-    console.log("aca")
-    console.log(horainicio.value);
-
-    turnos.push(eventoNuevo);
-
-    localStorage.setItem("turnos", JSON.stringify(turnos));
-
-    mostrarTurnos();
-
-    CrearTurnos(eventoNuevo.id,eventoNuevo.horainicio,eventoNuevo.fin)
-
-    formularioTurnos.reset();
-  }
-});*/
-/*formularioTurnos.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  if (
-    especialidad.value === "" ||
-    medico.value === "" ||
-    horainicio.value === "" ||
-    horafin.value === "" ||
-    dia.value == "" ||
-    frecuencia.value === ""
-  ) {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Por Favor complete todos los campos",
-    });
-  } else {
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Se registro el turno con exito!",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-
-    const eventoNuevo = {
-      id: Date.now().toString(36),
-      servicio: especialidad.value,
-      medico: medico.value,
-      horainicio: DateTime.fromISO(`${dia.value}T${horainicio.value}:00`),
-      horafin: DateTime.fromISO(`${dia.value}T${horafin.value}:00`),
-      dia: dia.value,
-      frecuencia: frecuencia.value,
-    };
-
-    turnos.push(eventoNuevo);
-
-    localStorage.setItem("turnos", JSON.stringify(turnos));
-
-    mostrarTurnos();
-
-    formularioTurnos.reset();
-
-    //CrearTurnos(eventoNuevo.id, eventoNuevo.horainicio, eventoNuevo.horafin);
-
-    
-  }
-});*/
 
 formularioTurnos.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -764,7 +365,7 @@ formularioTurnos.addEventListener("submit", (e) => {
       timer: 1500,
     });
 
-    // Crear un objeto DateTime para la hora de inicio y la hora de fin
+    
     const horaInicio = DateTime.fromISO(`${dia.value}T${horainicio.value}:00`);
     const horaFin = DateTime.fromISO(`${dia.value}T${horafin.value}:00`);
 
@@ -777,7 +378,7 @@ formularioTurnos.addEventListener("submit", (e) => {
       dia: dia.value,
       frecuencia: frecuencia.value,
     };
-    // Calcular los turnos automáticamente en función de la frecuencia
+    
     const turnosGenerados = [];
     let currentHora = horaInicio;
     while (currentHora <= horaFin) {
@@ -796,88 +397,20 @@ formularioTurnos.addEventListener("submit", (e) => {
     listaTurnos.push(turnosGenerados);
     localStorage.setItem("listaTurnos", JSON.stringify(listaTurnos));
 
-    // Agregar los turnos generados al array de turnos existente
+   
     turnos.push(eventoNuevo);
 
-    // Guardar los turnos en el localStorage
+    
     localStorage.setItem("turnos", JSON.stringify(turnos));
 
-    // Mostrar los turnos en la interfaz
+   
     mostrarTurnos();
 
-    // Restablecer el formulario
+    
     formularioTurnos.reset();
   }
 });
 
-/*function mostrarTurnos() {
-  contenedorTurnos.innerHTML = "";
-
-  turnos.forEach((turno) => {
-    console.log(turno.horainicio);
-    let turn = document.createElement("div");
-    let dia = document.createElement("p");
-    dia.innerHTML = `Dia: ${turno.dia}`;
-    turn.appendChild(dia);
-    let servicio = document.createElement("p");
-    servicio.innerHTML = `Servicio: ${turno.servicio}`;
-    turn.appendChild(servicio);
-    let medico = document.createElement("p");
-    medico.innerHTML = `Medico: ${turno.medico}`;
-    turn.appendChild(medico);
-    let horainicio = document.createElement("p");
-    horainicio.innerHTML = `Hora inicio: ${new Date(
-      turno.horainicio
-    ).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
-    turn.appendChild(horainicio);
-    let horafin = document.createElement("p");
-    horafin.innerHTML = `Hora fin: ${new Date(turno.horafin).toLocaleTimeString(
-      [],
-      { hour: "2-digit", minute: "2-digit" }
-    )}`;
-    turn.appendChild(horafin);
-    let frecuencia = document.createElement("p");
-    frecuencia.innerHTML = `Frecuencia de los turnos: ${turno.frecuencia} minutos.`;
-    turn.classList.add("turnito");
-    turn.appendChild(frecuencia);
-    let boton = document.createElement("div");
-    let buton = document.createElement("button");
-    buton.innerHTML = "eliminar";
-    buton.setAttribute("data-id", turno.id);
-    buton.classList.add("bDelete");
-    let divBotonVer = document.createElement("div");
-    let botonVer = document.createElement("button");
-    botonVer.innerHTML = "ver";
-    botonVer.setAttribute("data-id", turno.id);
-    botonVer.classList.add("botonVer");
-    /*document.querySelectorAll(".bDelete").forEach((button) => {
-            button.addEventListener("click", (e) => {
-              const id = button.getAttribute("data-id");
-              turnos = turnos.filter((t) => t.id !== id);
-              localStorage.setItem("turnos", JSON.stringify(turnos));
-              mostrarTurnos();
-            });
-          });*/
-/* buton.addEventListener("click", (e) => {
-              turnos = turnos.filter((t) => t.id !== turno.id);
-              localStorage.setItem("turnos", turnos);
-            });*/
-/*buton.onclick = () => {
-            turnos = turnos.filter((t) => t.id !== t[index].id);
-            localStorage.setItem("tareas", JSON.stringify(tareas));
-            mostrarTurnos();
-          };*/
-/*buton.addEventListener('click',(e)=>{let tur = e.target.parentNode.parentNode;
-            tur.remove();
-            turnos = turnos.filter(turn =>turn.id !== );
-            localStorage.setItem("turnos", JSON.stringify(turnos)); });
-    boton.appendChild(buton);
-    divBotonVer.appendChild(botonVer)
-    turn.appendChild(divBotonVer)
-    turn.appendChild(boton);
-    contenedorTurnos.appendChild(turn);
-  });
-};*/
 
 function mostrarTurnos() {
   contenedorTurnos.innerHTML = "";
@@ -923,12 +456,7 @@ function mostrarTurnos() {
     buton.innerHTML = "Eliminar";
     buton.setAttribute("data-id", turno.id);
     buton.classList.add("bDelete");
-    /*buton.addEventListener("click", (e) => {
-      const id = e.target.getAttribute("data-id");
-      turnos = turnos.filter((t) => t.id !== id);
-      localStorage.setItem("turnos", JSON.stringify(turnos));
-      mostrarTurnos();
-    });*/
+    
     boton.appendChild(buton);
 
     // Botón de ver
@@ -981,29 +509,7 @@ contenedorTurnos.addEventListener("click", (e) => {
 mostrarTurnos();
 
 const contenedorListaTurnos = document.querySelector("#contenedorListaTurnos");
-/*function mostrarListaTurnos(id) {
-  console.log(id);
 
-  contenedorTurnos.style.display = "none";
-  contenedorListaTurnos.style.display = "block";
-
-  let turnoss = listaTurnos.find((turn) => turn[0].id === id);
-
-  contenedorListaTurnos.innerHTML = `<div><p> Medico: ${turnoss[0].medico}</p><p> Especialidad: ${turnoss[0].servicio}</p><p> Dia: ${turnoss[0].dia}</p></div>`;
-
-  let turnoshtml = turnoss.map((m) => {
-    const horaInicio = DateTime.fromISO(m.horainicio);
-    const horaFin = DateTime.fromISO(m.horafin);
-    return `<div><p> Hora inicio: ${horaInicio.toFormat(
-      "HH:mm"
-    )}</p><p> Hora fin: ${horaFin.toFormat("HH:mm")}</p><p> Paciente: ${
-      m.paciente
-    }</p></div>`;
-  });
-  
-
-  contenedorListaTurnos.innerHTML += turnoshtml;
-}*/
 function mostrarListaTurnos(id) {
   console.log(id);
 
@@ -1025,91 +531,10 @@ function mostrarListaTurnos(id) {
       }</p></div>`;
     });
 
-    contenedorListaTurnos.innerHTML += turnoshtml.join(""); // Usamos join("") para convertir el array en una cadena
-  } else {
-    // Manejar el caso en el que no se encuentre el ID
+    contenedorListaTurnos.innerHTML += turnoshtml.join("");} 
+    else {
+    
     contenedorListaTurnos.innerHTML = "<p>No se encontraron turnos para este ID.</p>";
   }
 }
 
-
-/*function CrearTurnos(id,horainicio,horafin,frecuencia){
-
-  let turnito ={
-    id: id,
-    horainicio: horainicio,
-    horafin: horafin
-  }
-
-  //while(){
-
-  //}
-
-  turnitos.push(turnito);
-
-  localStorage.setItem("turnitos",JSON.stringify(turnos));
-
-
-}
-function generarTurnos(turnosMedico) {
-  const frecuencia = parseInt(turnosMedico.frecuencia);
-  const divTurnos = document.querySelector("#turnosDia");
-  divTurnos.innerHTML = "";
-
-  let currentHora = new Date(turnosMedico.horainicio);
-  let finhora = new Date(turnosMedico.horafin);
-
-  while (currentHora <= finhora) {
-    const div = document.createElement("div");
-    const horaOriginal = new Date(currentHora); // Guardamos la hora original
-    div.dataset.originalHora = horaOriginal.toISOString(); // Lo guardamos en un atributo personalizado
-    div.textContent = currentHora.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    div.classList.add("cajaTurno", "noAsignado");
-    div.id = Date.now().toString(36);
-    divTurnos.appendChild(div);
-
-    currentHora.setMinutes(currentHora.getMinutes() + frecuencia);
-
-    div.addEventListener("click", function () {
-      if (div.classList.contains("asignado")) {
-        Swal.fire({
-          title: "¿Quieres cancelar el turno?",
-          icon: "question",
-          html: `
-          <p>Dia: ${fechaInput.value}</p>
-          <p>Hora: ${div.dataset.originalHora}</p>`, // Usamos la hora original del atributo personalizado
-          confirmButtonText: "Aceptar",
-          cancelButtonText: "Cancelar",
-          showCancelButton: true,
-        }).then((respuesta) => {
-          if (respuesta.isConfirmed) {
-            Swal.fire({
-              title: "Turno cancelado",
-              icon: "error",
-              confirmButtonText: "Aceptar",
-            });
-            div.classList.remove("asignado");
-            div.classList.add("noAsignado");
-            div.innerHTML = currentHora.toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            });
-          }
-        });
-      } else {
-        const confirmacion = confirm("¿Quieres asignar este turno?");
-        if (confirmacion) {
-          alert(`Turno asignado: ${div.textContent}`);
-          div.classList.remove("noAsignado");
-          div.classList.add("asignado");
-          div.innerHTML += JSON.parse(
-            sessionStorage.getItem("usuario")
-          ).nombreUsuario;
-        }
-      }
-    });
-  }
-}*/
