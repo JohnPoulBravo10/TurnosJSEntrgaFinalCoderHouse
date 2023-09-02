@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar/Ocultar Elementos con Display Flex</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <main>
+        <button id="volver" style="display: none;">Volver</button>
+        <div class="contenedorBotones">
+            <button id="botonCrearTurnos">Crear Turnos(modo medico)</button>
+            <button id="botonAgendarTurnos">Agendar Turnos(modo usuario)</button>
+        </div>
+    
+        <div id="botonesModoMedicos" style="display: none;">
+            <button id="botonVerCrearTurnos">Crear Turno</button>
+            <button id="botonTurnosProgramados">Visualizar Turnos programados</button>
+        </div>
+    
+        <div id="botonesModoPaciente" style="display: none;">
+            <p>¿SE ATIENDE POR PRIMERA VEZ CON EL PROFESIONAL?</p>
+            <button id="botonRegistrarUsuario">SI</button>
+            <button id="botonIniciarSesion">NO</button>
+        </div>
+        <div  id="contenedorRegistrarUsuarios" style="display: none;">
+            <form action="" id="formularioUsuarios">
+
+                
+
+                <label for="dniUsuario">Ingrese su dni</label>
+                <input type="numer" name="dniUsuario" id="dniUsuario">
+
+                <label for="nombreUsuario">Ingrese su Nombre completo</label>
+                <input type="txt" name="nombreUsuario" id="nombreUsuario">
+
+                
+
+
+                <div class="boton">
+
+                    <input type="submit" name="enviar" id="botonRegistrarUsuario">
+
+                </div>
+
+            </form>
+        </div>
+        <div  id="contenedorIniciarSesion" style="display: none;">
+            <form action="" id="formularioIniciarSesion">
+
+                
+
+                <label for="dniUsuarioSesion">Ingrese su dni</label>
+                <input type="numer" name="dniUsuarioSesion" id="dniUsuarioSesion">              
+
+
+                <div class="boton">
+
+                    <input type="submit" name="buscar" id="buscarUsuario">
+
+                </div>
+
+            </form>
+        </div>
+      
+                <div class="formulario" id="contenedorRegistrarTurnos" style="display: none;">
+                    <p>Configuracion de los turnos</p>
+                    <form action="" id="formTurnos">
+    
+                        <label for="">Seleccione la especialidad</label>
+                        <select name="" id="especialidad2">
+                            <option value="">.:Seleccione:.</option>
+                            <option value="cardiologia">Cardiologia</option>
+                            <option value="pediatria">Pediatria</option>
+                        </select>
+    
+                        <select name="" id="medicos2">
+                            <option value="">.:Seleccione:.</option>
+                        </select>
+    
+                        <label for="fechadia">Ingrese Fecha de los turnos</label>
+                        <input type="date" name="fechadia" id="fechadia">
+    
+                        <label for="horainicio">Ingrese hora de inicio de los turnos</label>
+                        <input type="time" name="horainicio" id="horainicio">
+    
+                        <label for="horafin">Ingrese hora de fin de los turnos</label>
+                        <input type="time" name="horafin" id="horafin">
+    
+                        <label for="frecuencia">Ingrese la frecuencia de los turnos en min</label>
+                        <input type="number" name="frecuencia" id="frecuencia">
+    
+    
+                        <div class="boton">
+    
+                            <input type="submit" name="enviar" id="enviar">
+    
+                        </div>
+    
+                    </form>
+    
+                </div>
+    
+                <div id="contenedorTurnos" style="display: none;">
+    
+                    <!--
+        <div id="turnito">
+        
+                    <p>Dia: </p>
+                    <p>Hora inicio:</p>
+                    <p>Hora fin:</p>
+                    <p>frecuencia de 15 min</p>
+                    <button>Eliminar</button>
+        
+                </div>
+        -->
+    
+                </div>
+    
+    
+                <div id="contenedorListaTurnos" style="display: none;">
+    
+                    
+        
+    
+                </div>
+       
+                <div id="contenedorBuscarTurnos" style="display: none;">
+                    <form action="" id="formularioTurnos">
+                        <label for="fecha">Ingrese Fecha de los turnos</label>
+                        <input type="date" name="fecha" id="fecha">
+                        <label for="">Seleccione la especialidad</label>
+                        <select name="" id="especialidad">
+                            <option value="">.:Seleccione:.</option>
+                            <option value="cardiologia">Cardiologia</option>
+                            <option value="pediatria">Pediatria</option>
+                        </select>
+                        <select name="" id="medicos">
+                            <option value="">.:Seleccione:.</option>
+                        </select>
+                        <button type="submit" id="buscarTurnos">
+                            Buscar
+                        </button>
+                    </form>
+                </div>
+    
+                <div id="turnosDia" style="display: none;">
+    
+    
+    
+                </div>
+            
+    </main>
+    
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.2/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./js.js"></script>
+</body>
+
+</html>
